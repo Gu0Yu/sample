@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\User;
+use App\Models\Status;
 use Auth;
 use Mail;
 
@@ -27,7 +28,10 @@ class UsersController extends Controller
    //用户信息
    public function show(User $user)
    {
-      return view('users.show', compact('user'));
+       $statuses = $user->statuses()
+                        ->orderby('created_at', 'desc')
+                        ->paginate(30);
+      return view('users.show', compact('user', 'statuses'));
    }
    //注册操作
    public function store(Request $request)
