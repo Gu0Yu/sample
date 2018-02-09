@@ -23,7 +23,9 @@ class UsersController extends Controller
     //注册页面展示
    public function create()
    {
-      return view('users.create');
+       //var_dump(env('MAIL_USERNAME').'/'.env('MAIL_FROM_ADDRESS'));
+
+       return view('users.create');
    }
    //用户信息
    public function show(User $user)
@@ -47,7 +49,6 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-
         $this->sendEmailConfirmationTo($user);
         session()->flash('success', '验证邮件已发送到你的注册邮箱上，请注意查收。');
         return redirect('/');
@@ -98,8 +99,8 @@ class UsersController extends Controller
     {
         $view = 'emails.confirm';
         $data = compact('user');
-        $from = 'aufree@yousails.com';
-        $name = 'Aufree';
+        $from = '2575408183@qq.com';
+        $name = '2575408183@qq.com';
         $to = $user->email;
         $subject = "感谢注册 Sample 应用！请确认你的邮箱。";
 
